@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#f7efe7">
+<title>For You, Sayang — From Paiz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap');
+
+:root{
+  --cream:#f8f0e8;
+  --paper:#fffaf4;
+  --ink:#40342f;
+  --muted:#8c746a;
+  --rose:#c98f92;
+  --rose2:#e6c0bd;
+  --leaf:#73846f;
+  --shadow:0 24px 70px rgba(74,52,45,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+  background:
+    radial-gradient(circle at 20% 15%,rgba(255,255,255,.9),transparent 27%),
+    radial-gradient(circle at 85% 80%,rgba(230,192,189,.28),transparent 25%),
+    linear-gradient(135deg,#f7eee6,#fbf8f2 55%,#f0e2db);
+  overflow-x:hidden;
+}
+button{font:inherit}
+.page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:28px 16px;
+  position:relative;
+}
+.flower{
+  position:absolute;
+  color:rgba(174,111,117,.52);
+  font-family:Georgia,serif;
+  font-size:28px;
+  user-select:none;
+  pointer-events:none;
+  animation:float 6s ease-in-out infinite;
+}
+.flower:nth-child(1){left:7%;top:10%;transform:rotate(-18deg);animation-delay:-1s}
+.flower:nth-child(2){right:8%;top:18%;font-size:38px;animation-delay:-3s}
+.flower:nth-child(3){left:10%;bottom:12%;font-size:34px;animation-delay:-2s}
+.flower:nth-child(4){right:9%;bottom:9%;font-size:30px;animation-delay:-4s}
+@keyframes float{50%{transform:translateY(-12px) rotate(6deg)}}
+
+#opening{
+  width:min(470px,100%);
+  text-align:center;
+  transition:opacity .7s,transform .7s;
+}
+.kicker{
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-size:10px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+.subtitle{
+  font-family:"Cormorant Garamond",serif;
+  font-size:22px;
+  margin:0 0 22px;
+}
+.envelope{
+  width:min(340px,88vw);
+  aspect-ratio:1.35/1;
+  margin:auto;
+  position:relative;
+  cursor:pointer;
+  filter:drop-shadow(0 20px 25px rgba(67,44,37,.17));
+  transition:transform .35s ease;
+}
+.envelope:hover,.envelope:active{transform:translateY(-5px) scale(1.015)}
+.env-back{
+  position:absolute;inset:0;border-radius:12px;
+  background:linear-gradient(145deg,#ead3c7,#d9b9ae);
+}
+.env-left,.env-right,.env-bottom{
+  position:absolute;z-index:2;
+  width:0;height:0;border-style:solid;
+}
+.env-left{left:0;bottom:0;border-width:0 0 170px 180px;border-color:transparent transparent #e2c7bc transparent}
+.env-right{right:0;bottom:0;border-width:170px 0 0 180px;border-color:transparent transparent transparent #d5b2a8}
+.env-bottom{
+  left:0;bottom:0;width:100%;height:54%;
+  background:#dcbeb3;clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);
+  border-radius:0 0 12px 12px;z-index:3;
+}
+.flap{
+  position:absolute;left:0;top:0;width:100%;height:68%;
+  background:#edd8ce;
+  clip-path:polygon(0 0,100% 0,50% 75%);
+  transform-origin:top;
+  transition:transform 1.05s cubic-bezier(.2,.75,.25,1);
+  z-index:5;
+  border-radius:12px 12px 0 0;
+}
+.seal{
+  position:absolute;z-index:7;left:50%;top:49%;transform:translate(-50%,-50%);
+  width:54px;height:54px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#b9787c;color:white;
+  box-shadow:0 6px 18px rgba(99,52,53,.25);
+  font-family:"Cormorant Garamond",serif;font-size:18px;
+}
+.open-text{
+  margin-top:18px;
+  color:var(--rose);
+  font-size:13px;
+  letter-spacing:.08em;
+}
+
+#letterWrap{
+  display:none;
+  width:min(760px,100%);
+  opacity:0;
+  transform:translateY(30px) scale(.98);
+}
+#letterWrap.show{display:block;animation:appear .9s forwards}
+@keyframes appear{to{opacity:1;transform:none}}
+
+.letter{
+  position:relative;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(201,143,146,.10),transparent 18%),
+    radial-gradient(circle at 88% 90%,rgba(115,132,111,.08),transparent 20%),
+    var(--paper);
+  border:1px solid rgba(139,105,94,.15);
+  border-radius:18px;
+  padding:30px 22px 34px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.letter:before{
+  content:"";
+  position:absolute;inset:10px;
+  border:1px solid rgba(174,111,117,.18);
+  border-radius:13px;
+  pointer-events:none;
+}
+.corner{
+  position:absolute;color:rgba(115,132,111,.55);
+  font-size:36px;line-height:1;
+}
+.c1{left:18px;top:16px}.c2{right:18px;top:16px;transform:scaleX(-1)}
+.c3{left:18px;bottom:16px;transform:scaleY(-1)}.c4{right:18px;bottom:16px;transform:scale(-1)}
+
+.letterTop{text-align:center;position:relative;z-index:2}
+.small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(35px,8vw,58px);
+  font-weight:500;
+  line-height:.95;
+  margin:10px 0 7px;
+}
+.rule{width:90px;height:1px;background:var(--rose2);margin:17px auto 22px}
+
+.album{position:relative;z-index:2;max-width:610px;margin:0 auto 30px;text-align:center}
+.album-page{display:none;animation:pageIn .45s ease}
+.album-page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateX(18px) scale(.98)}to{opacity:1;transform:none}}
+.page-number{font-size:11px;letter-spacing:.18em;color:var(--muted);margin-bottom:10px}
+.photo.single{width:min(100%,500px);aspect-ratio:1/1;margin:auto;padding:6px;border-radius:16px;background:linear-gradient(135deg,#e8cbc2,#fffaf4,#d9cbbd);box-shadow:0 14px 32px rgba(71,52,46,.15)}
+.photo.single img{width:100%;height:100%;display:block;object-fit:cover;border-radius:11px}
+.album-page:nth-child(1) img{object-position:center 28%}.album-page:nth-child(2) img{object-position:center 28%}.album-page:nth-child(3) img{object-position:center 52%}.album-page:nth-child(4) img{object-position:center 52%}.album-page:nth-child(5) img{object-position:center 48%}.album-page:nth-child(6) img{object-position:center}
+.caption{font-family:"Cormorant Garamond",serif;font-size:20px;font-style:italic;color:#765e56;margin-top:12px}
+.album-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.dots{display:flex;gap:6px;align-items:center;justify-content:center}
+.dot{width:7px;height:7px;border-radius:50%;border:0;background:#d9c1bb;padding:0;cursor:pointer;transition:.2s}.dot.active{width:20px;border-radius:99px;background:#a97872}
+
+.message{
+  position:relative;z-index:2;
+  max-width:620px;margin:auto;
+  font-family:"Cormorant Garamond",serif;
+  font-size:20px;line-height:1.62;
+}
+.message p{margin:0 0 16px}
+.salute{font-style:italic;color:#765e56}
+
+.signature{
+  text-align:center;
+  position:relative;z-index:2;
+  margin-top:30px;
+}
+.withlove{font-family:"Cormorant Garamond",serif;font-size:20px;font-style:italic}
+.name{
+  font-family:"Great Vibes",cursive;
+  font-size:47px;color:#76514e;margin-top:2px;
+}
+.from{
+  margin-top:8px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:25px;
+  color:#9b6b6b;
+  opacity:0;
+  transform:translateY(8px);
+}
+.letter.opened .from{animation:fadeUp 1.2s .4s forwards}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+.controls{
+  display:flex;justify-content:center;gap:10px;
+  margin-top:26px;position:relative;z-index:2;
+  flex-wrap:wrap;
+}
+.btn{
+  border:1px solid rgba(117,81,74,.2);
+  background:rgba(255,255,255,.7);
+  color:#654f49;
+  border-radius:999px;
+  padding:11px 17px;
+  cursor:pointer;
+  transition:.25s;
+}
+.btn:hover{transform:translateY(-2px);background:white}
+.petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}
+.petal{
+  position:absolute;top:-30px;width:9px;height:13px;
+  background:rgba(201,143,146,.5);
+  border-radius:70% 30% 70% 30%;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translate3d(var(--x),110vh,0) rotate(600deg);opacity:.1}
+}
+
+/* Pemutar lagu dibuat tidak mengganggu tampilan surat.
+   Lagu dimulai oleh klik pengguna pada amplop. */
+.music-hidden{
+  position:fixed;
+  width:1px;height:1px;
+  left:-10px;bottom:-10px;
+  overflow:hidden;
+  opacity:0;
+  pointer-events:none;
+}
+.music-hidden iframe{
+  width:1px;height:1px;border:0;
+}
+
+@media(max-width:520px){
+  .page{padding:20px 10px}
+  .letter{padding:27px 15px 28px}
+  .album{width:100%}
+  .message{font-size:18px;padding:0 8px}
+  .corner{font-size:29px}
+}
+
+.music-box{margin:24px auto 0;max-width:520px;padding:18px;border:1px solid rgba(117,88,70,.16);border-radius:22px;background:rgba(255,250,245,.78);box-shadow:0 12px 30px rgba(70,45,35,.08);text-align:center}
+.music-title{font-family:"Cormorant Garamond",serif;font-size:25px;font-weight:700;color:#6d4b3c}
+.music-sub{font-size:13px;color:#8c7568;margin:3px 0 12px}
+.music-play{border:0;border-radius:999px;padding:11px 18px;background:#765646;color:white;font:600 14px "DM Sans",sans-serif;cursor:pointer;box-shadow:0 8px 18px rgba(80,50,40,.16)}
+.youtube-wrap{display:none;margin-top:15px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#eee}
+.youtube-wrap.show-player{display:block}
+.youtube-wrap iframe{width:100%;height:100%;border:0}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="flower">❀</div><div class="flower">✿</div>
+  <div class="flower">❁</div><div class="flower">❀</div>
+
+  <section id="opening">
+    <div class="kicker">A little letter, made with love</div>
+    <p class="subtitle">Untuk seseorang yang sangat berarti...</p>
+
+    <div class="envelope" id="envelope" aria-label="Buka surat">
+      <div class="env-back"></div>
+      <div class="env-left"></div>
+      <div class="env-right"></div>
+      <div class="env-bottom"></div>
+      <div class="flap" id="flap"></div>
+      <div class="seal">P</div>
+    </div>
+
+    <div class="open-text">sentuh suratnya untuk membuka</div>
+  </section>
+
+  <section id="letterWrap">
+    <article class="letter" id="letter">
+      <div class="corner c1">❧</div><div class="corner c2">❧</div>
+      <div class="corner c3">❧</div><div class="corner c4">❧</div>
+
+      <header class="letterTop">
+        <div class="small">A letter from Paiz</div>
+        <h1>For You, Sayang</h1>
+        <div class="rule"></div>
+      </header>
+
+      <!-- ALBUM: SATU FOTO PER HALAMAN -->
+      <div class="album" id="album">
+        <div class="album-page active"><div class="page-number">01 / 06</div><div class="photo single"><img src="foto1.jpg" alt="Foto 1"></div><div class="caption">Satu foto, satu cerita.</div></div>
+        <div class="album-page"><div class="page-number">02 / 06</div><div class="photo single"><img src="foto2.jpg" alt="Foto 2"></div><div class="caption">Kenangan yang ingin aku simpan.</div></div>
+        <div class="album-page"><div class="page-number">03 / 06</div><div class="photo single"><img src="foto3.jpg" alt="Foto 3"></div><div class="caption">Momen kecil yang berarti.</div></div>
+        <div class="album-page"><div class="page-number">04 / 06</div><div class="photo single"><img src="foto4.jpg" alt="Foto 4"></div><div class="caption">Senyum yang selalu aku ingat.</div></div>
+        <div class="album-page"><div class="page-number">05 / 06</div><div class="photo single"><img src="foto5.jpg" alt="Foto 5"></div><div class="caption">Cerita kita, halaman demi halaman.</div></div>
+        <div class="album-page"><div class="page-number">06 / 06</div><div class="photo single"><img src="foto6.jpg" alt="Foto 6"></div><div class="caption">Dan semoga masih banyak halaman berikutnya.</div></div>
+        <div class="album-nav">
+          <button class="btn" id="prevPhoto">‹ Sebelumnya</button>
+          <div class="dots" id="dots"></div>
+          <button class="btn" id="nextPhoto">Berikutnya ›</button>
+        </div>
+      </div>
+
+      <div class="message">
+        <p class="salute">Untuk kamu,</p>
+
+        <p>
+          Aku mungkin nggak selalu pandai menyampaikan apa yang aku rasakan,
+          jadi kali ini aku ingin menuliskannya pelan-pelan, supaya kamu tahu
+          betapa berartinya kehadiranmu buat aku.
+        </p>
+
+        <p>
+          Terima kasih karena sudah hadir dan menjadi salah satu bagian paling
+          indah dari hari-hariku. Aku suka hal-hal kecil tentang kamu—cara kamu
+          tersenyum, cara kamu bercerita, dan hal-hal sederhana yang tanpa sadar
+          selalu berhasil membuat hariku terasa lebih baik.
+        </p>
+
+        <p>
+          Aku nggak berharap hubungan ini harus selalu sempurna. Aku cuma ingin
+          kita tetap bisa saling menghargai, saling mengerti, dan tetap memilih
+          untuk menjaga satu sama lain ketika keadaan sedang tidak mudah.
+        </p>
+
+        <p>
+          Semoga sebanyak apa pun hari yang kita lewati nanti, kita tetap punya
+          alasan untuk tersenyum ketika mengingat semua cerita yang pernah kita
+          buat bersama.
+        </p>
+
+        <p>
+          Dan kalau suatu hari kamu lupa betapa berartinya dirimu, semoga surat
+          kecil ini bisa mengingatkanmu bahwa ada seseorang yang sangat
+          bersyukur pernah mengenal dan menyayangimu.
+        </p>
+
+        <p>Jaga diri baik-baik, ya.</p>
+      </div>
+
+      <div class="signature">
+        <div class="withlove">With love,</div>
+        <div class="name">Paiz</div>
+        <div class="from">From Paiz, for you, sayang</div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="again">Baca Lagi</button>
+        
+      </div>
+    </article>
+  </section>
+</div>
+
+<div class="petals" id="petals"></div>
+
+<!-- MUSIK: langsung diputar saat amplop/surat ditekan -->
+<div class="music-hidden" aria-hidden="true">
+  <video id="musicVideo" preload="auto" loop playsinline>
+    <source src="music.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+const envelope = document.getElementById("envelope");
+const flap = document.getElementById("flap");
+const opening = document.getElementById("opening");
+const letterWrap = document.getElementById("letterWrap");
+const letter = document.getElementById("letter");
+const again = document.getElementById("again");
+const petals = document.getElementById("petals");
+const musicVideo = document.getElementById("musicVideo");
+let musicStarted = false;
+
+function makePetals(amount=24){
+  petals.innerHTML="";
+  for(let i=0;i<amount;i++){
+    const p=document.createElement("span");
+    p.className="petal";
+    p.style.left=Math.random()*100+"vw";
+    p.style.setProperty("--x",(Math.random()*240-120)+"px");
+    p.style.animationDuration=(5+Math.random()*5)+"s";
+    p.style.animationDelay=(Math.random()*2)+"s";
+    p.style.opacity=.25+Math.random()*.45;
+    petals.appendChild(p);
+  }
+}
+
+function playSong(){
+  if(musicStarted) return;
+  musicStarted = true;
+  musicVideo.currentTime = 0;
+  musicVideo.play().catch(()=>{});
+}
+
+function openLetter(){
+  playSong();
+  flap.style.transform="rotateX(180deg)";
+  opening.style.opacity="0";
+  opening.style.transform="translateY(-15px) scale(.97)";
+  setTimeout(()=>{
+    opening.style.display="none";
+    letterWrap.style.display="block";
+    requestAnimationFrame(()=>letterWrap.classList.add("show"));
+    setTimeout(()=>{
+      letter.classList.add("opened");
+      makePetals();
+    },700);
+  },750);
+}
+
+envelope.addEventListener("click",openLetter);
+
+const albumPages = [...document.querySelectorAll(".album-page")];
+const dots = document.getElementById("dots");
+let currentPhoto = 0;
+albumPages.forEach((_,i)=>{
+  const d=document.createElement("button");
+  d.className="dot"+(i===0?" active":"");
+  d.setAttribute("aria-label","Buka foto "+(i+1));
+  d.addEventListener("click",()=>showPhoto(i));
+  dots.appendChild(d);
+});
+function showPhoto(index){
+  currentPhoto=(index+albumPages.length)%albumPages.length;
+  albumPages.forEach((p,i)=>p.classList.toggle("active",i===currentPhoto));
+  [...dots.children].forEach((d,i)=>d.classList.toggle("active",i===currentPhoto));
+}
+document.getElementById("prevPhoto").addEventListener("click",()=>showPhoto(currentPhoto-1));
+document.getElementById("nextPhoto").addEventListener("click",()=>showPhoto(currentPhoto+1));
+
+again.addEventListener("click",()=>{
+  letter.classList.remove("opened");
+  letterWrap.scrollIntoView({behavior:"smooth",block:"start"});
+  setTimeout(()=>letter.classList.add("opened"),350);
+  makePetals(18);
+});
+
+</script>
+</body>
+</html>
